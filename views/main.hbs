@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title> Library Mongodb CRUD </title>
+    <style>
+        body{
+            background-color:lightgrey;
+        }
+        #submit{
+            background-color: darkkhaki;
+
+        }
+        .edit{
+            background-color: green;
+
+        }
+        .delete{
+            background-color: red;
+            
+        }
+    </style>
+</head>
+<body>
+    <h1>Library CRUD</h1>
+    {{message}}
+    <br><br>
+    {{#if edit_id}}
+     <h3>Edit</h3>
+    <br>
+    <form method="post" action="/update-book/{{edit_id}}">
+    <label>Title</label>
+    <input type="text" name="title" value="{{edit_book.title}}">
+    <label>Author</label>
+    <input type="text" name="author" value="{{edit_book.author}}">
+    <input type="submit">
+    </form>
+    <br><br>
+    {{!-- {{#if edit_id}}
+     <h3>Edit</h3>
+    <br>
+    <form method="post" action="/delete-book/{{edit_id}}">
+    <label>Title</label>
+    <input type="text" name="title" value="{{edit_book.title}}">
+    <label>Author</label>
+    <input type="text" name="author" value="{{edit_book.author}}">
+    <input type="submit">
+    </form>
+    <br><br> --}}
+    {{else}}
+    <h3>Create</h3>
+    <br>
+    <form method="post" action="/store-book">
+    <label>Title</label>
+    <input type="text" name="title">
+    <label>Author</label>
+    <input type="text" name="author">
+    <input type="submit" id="submit">
+    </form>
+    <br><br>
+
+   {{/if}}
+    <ul>
+        {{#each books}}
+        <li>{{this.title}} - {{this.author}}<button class="edit"><a  href="/?edit_id={{this._id}} ">Edit</a></button>  <button class="delete"><a href="/?delete_id={{this._id}}" onclick="return confirm('Are you sure want to delete?')">Delete</a></button></li>
+        {{/each}}
+    </ul>
+</body>
+</html>
